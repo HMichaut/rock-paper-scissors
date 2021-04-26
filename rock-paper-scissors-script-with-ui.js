@@ -1,3 +1,40 @@
+const resultDiv = document.querySelector("#results");
+const playerScoreDiv = document.querySelector("#playerScore");
+const computerScoreDiv = document.querySelector("#computerScore");
+
+
+const btnRock = document.querySelector("#btnrock");
+let playerScore = 0;
+let computerScore = 0;
+btnRock.addEventListener('click', () => {
+    updateScore("rock");
+  });
+const btnPaper = document.querySelector("#btnpaper");
+btnPaper.addEventListener('click', () => {
+    updateScore("paper");
+  });
+const btnScissors = document.querySelector("#btnscissors");
+btnScissors.addEventListener('click', () => {
+    updateScore("scissors");
+  });
+
+function updateScore(selection) {
+    if (playerScore === 5) {
+        resultDiv.textContent = "You win the game !";
+        playerScoreDiv.textContent = `Player score: ${playerScore}`;
+        computerScoreDiv.textContent = `Computer score: ${computerScore}`;
+    } else if (computerScore === 5) {
+        resultDiv.textContent = "You lose the game, try again ?";
+        playerScoreDiv.textContent = `Player score: ${playerScore}`;
+        computerScoreDiv.textContent = `Computer score: ${computerScore}`;
+    } else {
+        resultDiv.textContent = playRound(selection, computerPlay());
+        playerScoreDiv.textContent = `Player score: ${playerScore}`;
+        computerScoreDiv.textContent = `Computer score: ${computerScore}`;
+    }
+}
+
+
 // Define the possible outputs
 let possibleAnswers = ["rock", "paper", "scissors"];
 
@@ -21,24 +58,30 @@ function playRound(playerSelection, computerSelection) {
     let playerSelectionCaseInsensitive = playerSelection.toLowerCase();
     if (playerSelectionCaseInsensitive === "rock") {
         if (computerSelection === "paper") {
+            computerScore += 1;
             return "You Lose! Paper beats Rock";
         } else if (computerSelection === "scissors") {
+            playerScore += 1;
             return "You Win! Rock beats Scissors";
         } else {
             return "No winner! Rock cancels Rock";
         }
     } else if (playerSelectionCaseInsensitive === "paper") {
         if (computerSelection === "scissors") {
+            computerScore += 1;
             return "You Lose! Scissors beats Paper";
         } else if (computerSelection === "rock") {
+            playerScore += 1;
             return "You Win! Paper beats Rock";
         } else {
             return "No winner! Paper cancels Paper";
         }
     } else {
         if (computerSelection === "rock") {
+            computerScore += 1;
             return "You Lose! Rock beats Scissors";
         } else if (computerSelection === "paper") {
+            playerScore += 1;
             return "You Win! Scissors beats Paper";
         } else {
             return "No winner! Scissors cancels Scissors";
@@ -109,4 +152,7 @@ function game() {
 
 let gameTurnNumberLimit = 5;
 // console.log(playRound(playerSelection, computerSelection));
-console.log(game());
+// console.log(game());
+
+
+  
